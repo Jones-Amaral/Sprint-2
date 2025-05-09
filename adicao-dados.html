@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
-    <script src="JSON.js"></script>
+    <script src="/js/JSON.js"></script>
+    <script src="/js/app.js"></script>
     <title>Adição de Notícias</title>
 </head>
 
@@ -25,11 +25,53 @@
     </header>
 
     <main>
+        <div class="container">
+            <div class="row-esquerda"></div>
 
+            <div class="row-centro">
+                <h1>Inserir Notícia</h1>
+                <div class="corpoAdicao">
+                    <h2>Título da Notícia</h2>
+                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
+                    <h2>Subtítulo da Notícia</h2>
+                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui o subtítulo...">
+                    <div class="container-info">
+                        <div class="row-info">
+                            <h2>Categoria</h2>
+                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
+                            <h2>Autor</h2>
+                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui o autor...">
+                            <h2>Data</h2>
+                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui a data...">
+                        </div>
+                        <div class="row-img">
+                            <h2>Imagem Banner</h2>
+                            <input type="file" id="imagemInput" accept="image/*">
+                            <button onclick="enviarImagem()">Enviar Imagem</button>
+                            <h2>Imagem Complementares</h2>
+                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
+                        </div>
+                    </div>
+                    <h2>Corpo notícia</h2>
+                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui a notícia...">
+                    <div class="container-flex">
+                        <button class="adicionarSub">Adicionar Subtítulo</button>
+                    </div>
+                    <!--<input type="text" name="" id="inputInfo" placeholder="Insira aqui o subtítulo..."> -->
+
+                    <h2>Iframe</h2>
+                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui o link do Iframe...">
+                    <div class="container-flex">
+                        <button class="enviarNoticia">Enviar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-direita"></div>
+        </div>
     </main>
 
     <footer>
-
     </footer>
 
 </body>
