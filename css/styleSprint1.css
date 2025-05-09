@@ -23,6 +23,12 @@ header {
     margin-left: 20px;
 }
 
+.icone-Adicionar{
+    width: 35px;
+    position: fixed;
+    top: 23px;
+    left: 220px;
+}
 .user-img {
     height: 50px;
     margin-right: 20px;
