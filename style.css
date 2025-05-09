@@ -1,0 +1,37 @@
+html,
+body {
+    background-color: #e7f5e9;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #0a1a37;
+    border-bottom: 3px solid #3df00c;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+}
+
+.logo-img {
+    height: 80px;
+    margin-left: 20px;
+}
+
+.user-img {
+    height: 50px;
+    margin-right: 20px;
+}
+header ul li {
+    font-size: 25px;
+    display: inline;
+    padding-left: 40px;
+    text-decoration-style: none;
+}
+
+header ul li a {
+    color: #e7f5e9;
+    text-decoration: none;
+}
