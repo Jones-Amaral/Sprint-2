@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes</title>
+    <script src="/js/Sprint1/appSprint1.js"></script>
+    <link rel="stylesheet" href="/css/styleSprint1.css">
+</head>
+
+<body>
+    <header>
+        <a href="pagina-educacao-Sprint1.html"><img src="img/header/logo.png" id="img-header" class="logo-img"
+                alt="Logo +Grana"></a>
+        <nav id="menuHeader">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Noticias</a></li>
+                <li><a href="pagina-educacao-Sprint1.html">Educação</a></li>
+                <li><a href="#">Investimento</a></li>
+            </ul>
+        </nav>
+        <a href="#"><img src="img/header/user.png" id="img-header" class="user-img" alt="Icone User"></a>
+    </header>
+
+    <main id="detalhes">
+        <a href="#"><img src="/img/header/hamburguer.png" alt="Icone Menu" class="icone-hamburguer"></a>
+        <!-- Menu lateral -->
+
+        <div id="noticia"></div> <!-- Faz o carregamento das notícias -->
+
+
+
+        <img src="/img/img-educacao/coracao-png.png" alt="Favoritar Noticia" class="favoritar" id="imgFavoritar"
+            onclick="trocarImagem()">
+        <!-- Por enquanto só substitui a imagem, já que a parte de favoritar e busca não ficou para mim -->
+    </main>
+
+    <footer>
+        <script>
+            /* noticias */
+            window.onload = function () {
+                /* Ligação do detalhe com ID */
+                let params = new URLSearchParams(location.search);
+                let id = params.get("id");
+                let comentario = usuario.find(function (elem) { return elem.id == id })
+                let educacao = itens.find(function (elem) { return elem.id == id })
+                /* Inserção da notícia na página */
+                if (educacao) {
+                    document.getElementById("noticia").innerHTML =
+                        `
+                        <div class="corpoNoticia">
+                           <h1>${educacao.titulo}</h1>
+                           <p class="resumo">${educacao.resumo}</p>
+                           <p class="autor">${educacao.autor}</p>
+                           <p class="data">${educacao.data}</p>
+                           <p class="tipo">${educacao.tipo}</p>
+                           <div class="bannerDetalhe"><img src="${educacao.banner}" alt="${educacao.descricao}" class="imgBanner"></div>
+                           <div class="textoNoticia"><p class="texto">${educacao.texto}</p></div>
+                           <h1>Entenda Mais no Vídeo Abaixo</h1>
+                           <div class="videoIframe"> <iframe width="789px" height="444px" src="${educacao.iframe}" title="${educacao.titulo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                           </div>
+                            <h1>Últimos Comentários</h1>
+                                <div class="comentarios">
+                                    <div class="containerComentários">
+                                        <h2>Insira seu comentário abaixo</h2>
+                                        <input type="text" id="InserirComentario" class="insiraComentario" placeholder="Comente aqui..." value="Insira Aqui..."> 
+                                        <div class="botaoEnviar">
+                                            <button class="btnEnviar" id="btnEnviar">Enviar</button>
+                                        </div>
+                                    </div>
+                                    <div class="comentariosUsuarios" id="comentariosUsuarios">
+                                        <h2>Mais Recentes</h2>
+                                        <p>Comentado por: ${comentario.usuario}</p>
+                                        <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario"><input type="text" class="comentarioUsuario" placeholder="Comente aqui..." value="${comentario.comentario}"> 
+                                    </div>
+                                </div>
+                        
+                    `
+                    /* Função para adicionar o comentário */
+                    document.getElementById("btnEnviar").addEventListener("click", function () {
+                        const campoComentario = document.getElementById("InserirComentario");
+                        const comentario = campoComentario.value.trim();
+
+                        if (comentario) {
+                            const containerUsuario = document.getElementById("comentariosUsuarios");
+
+                            const campoComentario = document.createElement("div");
+                            campoComentario.id = "comentarioInserido";
+                            campoComentario.innerHTML = `
+                            <p>Comentário Anônimo</p>
+                            <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
+                            <input type="text" class="comentarioUsuario" placeholder="Comente aqui..." value="${comentario}" readonly> `
+
+                            containerUsuario.appendChild(campoComentario);
+
+                        }
+                    })
+
+                } else
+                    document.getElementById("noticia").innerHTML = `<p>Página não encontrada</p>`
+            }
+
+            /* Função de troca de imagem */
+            function trocarImagem() {
+                const imagem = document.getElementById("imgFavoritar");
+                if (imagem.src.includes("/img/img-educacao/coracao-png.png")) {
+                    imagem.src = "/img/img-educacao/coracao-vermelho.png"
+                } else {
+                    imagem.src = "/img/img-educacao/coracao-png.png"
+                }
+            }
+        </script>
+    </footer>
+</body>
+
+</html>
