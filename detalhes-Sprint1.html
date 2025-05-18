@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes</title>
-    <script src="/js/Sprint1/appSprint1.js"></script>
+    <script src="js/JSON.js"></script>
     <link rel="stylesheet" href="/css/styleSprint1.css">
 </head>
 
@@ -43,9 +43,18 @@
             window.onload = function () {
                 /* Ligação do detalhe com ID */
                 let params = new URLSearchParams(location.search);
-                let id = params.get("id");
-                let comentario = usuario.find(function (elem) { return elem.id == id })
-                let educacao = itens.find(function (elem) { return elem.id == id })
+                let id = Number(params.get("id"));
+
+                let noticiasJSON = [];
+                for (let categoria in itens) {
+                    noticiasJSON = noticiasJSON.concat(itens[categoria]);
+                }
+                let noticiasLS = JSON.parse(localStorage.getItem("noticias") || "[]");
+                let todasNoticias = noticiasJSON.concat(noticiasLS);
+
+                let educacao = todasNoticias.find(n => n.id === id);
+                let comentario = usuario.find(function (elem) { return elem.id == id }) || { usuario: "Anônimo", comentario: "" };
+
                 /* Inserção da notícia na página */
                 if (educacao) {
                     document.getElementById("noticia").innerHTML =
@@ -55,7 +64,6 @@
                            <p class="resumo">${educacao.resumo}</p>
                            <p class="autor">${educacao.autor}</p>
                            <p class="data">${educacao.data}</p>
-                           <p class="tipo">${educacao.tipo}</p>
                            <div class="bannerDetalhe"><img src="${educacao.banner}" alt="${educacao.descricao}" class="imgBanner"></div>
                            <div class="textoNoticia"><p class="texto">${educacao.texto}</p></div>
                            <h1>Entenda Mais no Vídeo Abaixo</h1>
@@ -80,21 +88,21 @@
                     `
                     /* Função para adicionar o comentário */
                     document.getElementById("btnEnviar").addEventListener("click", function () {
-                        const campoComentario = document.getElementById("InserirComentario");
-                        const comentario = campoComentario.value.trim();
+                        const inputComentario = document.getElementById("InserirComentario");
+                        const textoComentario = inputComentario.value.trim();
 
-                        if (comentario) {
+                        if (textoComentario) {
                             const containerUsuario = document.getElementById("comentariosUsuarios");
 
                             const campoComentario = document.createElement("div");
-                            campoComentario.id = "comentarioInserido";
+                            campoComentario.className = "comentarioInserido";
                             campoComentario.innerHTML = `
-                            <p>Comentário Anônimo</p>
-                            <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
-                            <input type="text" class="comentarioUsuario" placeholder="Comente aqui..." value="${comentario}" readonly> `
+                    <p>Comentário Anônimo</p>
+                    <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
+                    <input type="text" class="comentarioUsuario" value="${textoComentario}" readonly>`;
 
                             containerUsuario.appendChild(campoComentario);
-
+                            inputComentario.value = "";
                         }
                     })
 

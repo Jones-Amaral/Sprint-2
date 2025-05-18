@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styleSprint2.css">
-    <script src="/js/Sprint2/app.js"></script>
-    <script src="/js/Sprint2/JSON.js"></script>
     <title>Adição de Notícias</title>
 </head>
 
@@ -32,39 +30,39 @@
                 <h1>Inserir Notícia</h1>
                 <div class="corpoAdicao">
                     <h2>Título da Notícia</h2>
-                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
-                    <h2>Subtítulo da Notícia</h2>
-                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui o subtítulo...">
-
+                    <input type="text" name="" id="inputTitulo" placeholder="Insira aqui o título...">
+                    <h2>Resumo</h2>
+                    <input type="text" name="" id="inputResumo" placeholder="Insira aqui o resumo...">
                     <div class="container-info">
+                        <div class="row-info2">
+                            <h2>Autor</h2>
+                            <input type="text" name="" id="inputAutor" placeholder="Insira aqui o autor...">
+
+                            <h2>Data</h2>
+                            <input type="text" name="" id="inputData" placeholder="Insira aqui a data...">
+                        </div>
                         <div class="row-info">
                             <h2>Categoria</h2>
                             <div id="dropDownCategoria" class="dropDown">
                                 <button id="inputCat" class="dropBtn" onclick="abrirDropDown()">Escolha a
                                     categoria</button>
                                 <div id="conteudoDropDown" class="conteudoDropDown">
-                                    <button type="button" onclick="selecionarCategoria(this)">Educação</button>
-                                    <button type="button" onclick="selecionarCategoria(this)">Curiosidades</button>
-                                    <button type="button" onclick="selecionarCategoria(this)">Economia</button>
-                                    <button type="button" onclick="selecionarCategoria(this)">Negócios</button>
+                                    <button type="button" onclick="selecionarCategoria(this)">educacao</button>
+                                    <button type="button" onclick="selecionarCategoria(this)">economia</button>
+                                    <button type="button" onclick="selecionarCategoria(this)">investimento</button>
                                 </div>
                             </div>
-                            <h2>Autor</h2>
-                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui o autor...">
-                        </div>
+                            <div class="divBanner">
+                                <h2>Imagem Banner</h2>
+                                <input type="file" id="imagemBanner" accept="image/*" name="Imagem Banner">
 
-                        <div class="row-img">
-                            <h2>Imagem Banner</h2>
-                            <input type="file" id="imagemInput" accept="image/*" name="Imagem Banner">
+                            </div>
                         </div>
-
                     </div>
 
-                    <h2>Data</h2>
-                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui a data...">
 
                     <h2>Corpo notícia</h2>
-                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui a notícia...">
+                    <input type="text" name="" id="inputCorpo" placeholder="Insira aqui a notícia...">
 
                     <div id="blocoSubtitulos">
                         <div class="grupoSubtitulo">
@@ -76,9 +74,9 @@
 
 
                     <h2>Iframe</h2>
-                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui o link do Iframe...">
+                    <input type="text" name="" id="inputIframe" placeholder="Insira aqui o link do Iframe...">
                     <div class="container-flex">
-                        <button class="enviarNoticia">Enviar</button>
+                        <button class="enviarNoticia" id="btnEnviar">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -91,5 +89,7 @@
     </footer>
 
 </body>
+<script src="js/JSON.js"></script>
+<script src="js/app.js"></script>
 
 </html>

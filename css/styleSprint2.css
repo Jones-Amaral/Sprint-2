@@ -51,8 +51,9 @@ main {
     padding-top: 80px;
     width: 100%;
 }
+
 .row-direita {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 .container {
@@ -70,7 +71,16 @@ main {
     padding: 60px;
 }
 
-#inputInfo {
+#inputInfo,
+#inputSubNovo,
+#inputCorpoSub,
+#inputTitulo,
+#inputSub,
+#inputAutor,
+#inputData,
+#inputCorpo,
+#inputIframe,
+#inputResumo {
     width: 100%;
     height: 30px;
     border-radius: 18px;
@@ -80,12 +90,41 @@ main {
     padding-left: 10px;
 }
 
+#imagemBanner {
+    font-size: 20px;
+    color: #0a1a36;
+}
+
+.botao-upload {
+    margin-top: 20px;
+    height: 100%;
+    width: 100%;
+    color: #0a1a36;
+    background-color: #e6f4e8;
+    border: #0a1a36 2px solid;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 15px;
+
+}
+
+#inputInfo::placeholder {
+    vertical-align: center;
+    color: #0a1a36;
+    font-size: 20px;
+    background-color: #e7f5e9;
+    width: 100%;
+    height: 100%;
+    margin-left: 10px;
+}
+
 #inputCat {
     width: 100%;
     height: 100%;
     font-size: 20px;
     color: #0a1a36;
     background-color: #e7f5e9;
+    border: 1px solid #0a1a36;
 }
 
 .dropDown {
@@ -133,15 +172,6 @@ main {
     color: #0a1a36;
 }
 
-#inputInfo::placeholder {
-    vertical-align: center;
-    color: #0a1a36;
-    font-size: 20px;
-    background-color: #e7f5e9;
-    width: 100%;
-    height: 100%;
-    margin-left: 10px;
-}
 
 .container-info {
     width: 100%;
@@ -151,7 +181,7 @@ main {
 
 .adicionarSub {
     margin-top: 20px;
-    height: 40px;
+    height: 100%;
     width: 20%;
     color: #0a1a36;
     background-color: #e6f4e8;
@@ -159,6 +189,7 @@ main {
     border-radius: 5px;
     font-size: 20px;
     cursor: pointer;
+        padding: 10px;
 }
 
 .container-flex {
@@ -168,8 +199,9 @@ main {
 
 .enviarNoticia {
     margin-top: 20px;
-    height: 40px;
+    height: 100%;
     width: 90px;
+    padding: 10px;
     color: #0a1a36;
     background-color: #e6f4e8;
     border: #0a1a36 2px solid;

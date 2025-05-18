@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sprint 1 +Grana - Educação </title>
     <link rel="stylesheet" href="/css/styleSprint1.css">
-    <script src="/js/Sprint1/appSprint1.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="js/JSON.js"></script>
 </head>
 
 <body>
@@ -77,61 +78,74 @@
                     paginaAtual++;
                     exibirNoticias();
                 });
+
+                const menuLateral = document.getElementById('menuLateral');
+                const hamburguerMenu = document.getElementById('hamburguerMenu');
+                const fecharMenu = document.getElementById('fecharMenu');
+
+                hamburguerMenu.addEventListener('click', function () {
+                    menuLateral.classList.add('show');
+                });
+
+                fecharMenu.addEventListener('click', function () {
+                    menuLateral.classList.remove('show');
+                });
+
             };
 
             /* Notícias carregadas pelo JSON */
             function exibirNoticias() {
                 let noticiasEducativas = document.getElementById("noticiaEducativa");
+                const noticiasJSON = itens.educacao || [];
+
+                const noticiasLS = carregarNoticiasLocalStorage();
+
+                const noticiasLSFiltradas = noticiasLS.filter(noticia => noticia.tipo === "educacao");
+
+                const idsJSON = new Set(noticiasJSON.map(n => n.id));
+
+                const noticiasUnicasLS = noticiasLSFiltradas.filter(noticia => !idsJSON.has(noticia.id));
+
+                const todasNoticias = noticiasJSON.concat(noticiasUnicasLS);
 
                 const inicio = (paginaAtual - 1) * noticiasPorPagina;
                 const fim = inicio + noticiasPorPagina;
 
-                let strNoticia = "";
+                const noticiasPagina = todasNoticias.slice(inicio, fim);
 
-                /* Exibe apenas as notícias da página atual */
-                for (let i = inicio; i < fim && i < itens.length; i++) {
-                    let noticia = itens[i];
+                let strNoticia = "";
+                for (let i = 0; i < noticiasPagina.length; i++) {
+                    const noticia = noticiasPagina[i];
                     strNoticia += `
-                        <div class="noticia">
-                            <div class="imagemNoticia">
-                                <a href="detalhes-Sprint1.html?id=${noticia.id}">
-                                    <img src="${noticia.banner}" class="imagem" alt="${noticia.descricao}">
-                            </div>
-                            <div class="texto">
-                                <h1>${noticia.titulo}</h1></a>
-                                <p class="resumo">${noticia.resumo}</p>
-                                <p class="autor">${noticia.autor}</p>
-                                <p class="data">${noticia.data}</p>
-                                <p class="tipo">${noticia.tipo}</p>
-                            </div>
-                        </div>
-                    `;
+                     <div class="noticia">
+                         <div class="imagemNoticia">
+                             <a href="detalhes-Sprint1.html?id=${noticia.id}">
+                                 <img src="${noticia.banner}" class="imagem" alt="${noticia.descricao || noticia.titulo}">
+                             
+                         </div>
+                         <div class="texto">
+                             <h1>${noticia.titulo}</h1></a>
+                             <p class="resumo">${noticia.resumo}</p>
+                             <p class="autor">${noticia.autor}</p>
+                             <p class="data">${noticia.data}</p>
+                         </div>
+                     </div>
+                 `;
                 }
 
-                noticiasEducativas.innerHTML += strNoticia;
+                if (paginaAtual === 1) {
+                    noticiasEducativas.innerHTML = strNoticia;
+                } else {
+                    noticiasEducativas.innerHTML += strNoticia;
+                }
 
-                /* Se não houver mais notícias para mostrar, esconda o botão "Veja Mais" */
-                if (fim >= itens.length) {
+
+                if (fim >= todasNoticias.length) {
                     document.querySelector(".vejaBtn").style.display = "none";
                 } else {
                     document.querySelector(".vejaBtn").style.display = "block";
                 }
 
-                /* Botão Hamburguer */
-                /* Selecionando os elementos */
-                const menuLateral = document.getElementById('menuLateral');
-                const hamburguerMenu = document.getElementById('hamburguerMenu');
-                const fecharMenu = document.getElementById('fecharMenu');
-
-                /* Quando o botão de hambúrguer for clicado, abre o menu */
-                hamburguerMenu.addEventListener('click', function () {
-                    menuLateral.classList.add('show');
-                });
-
-                /* Quando o botão de fechar for clicado, fecha o menu */
-                fecharMenu.addEventListener('click', function () {
-                    menuLateral.classList.remove('show');
-                });
             }
         </script>
     </footer>
