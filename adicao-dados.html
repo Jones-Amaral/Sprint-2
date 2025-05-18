@@ -35,29 +35,45 @@
                     <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
                     <h2>Subtítulo da Notícia</h2>
                     <input type="text" name="" id="inputInfo" placeholder="Insira aqui o subtítulo...">
+
                     <div class="container-info">
                         <div class="row-info">
                             <h2>Categoria</h2>
-                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
+                            <div id="dropDownCategoria" class="dropDown">
+                                <button id="inputCat" class="dropBtn" onclick="abrirDropDown()">Escolha a
+                                    categoria</button>
+                                <div id="conteudoDropDown" class="conteudoDropDown">
+                                    <button type="button" onclick="selecionarCategoria(this)">Educação</button>
+                                    <button type="button" onclick="selecionarCategoria(this)">Curiosidades</button>
+                                    <button type="button" onclick="selecionarCategoria(this)">Economia</button>
+                                    <button type="button" onclick="selecionarCategoria(this)">Negócios</button>
+                                </div>
+                            </div>
                             <h2>Autor</h2>
                             <input type="text" name="" id="inputInfo" placeholder="Insira aqui o autor...">
-                            <h2>Data</h2>
-                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui a data...">
                         </div>
+
                         <div class="row-img">
                             <h2>Imagem Banner</h2>
-                            <input type="file" id="imagemInput" accept="image/*">
-                            <button onclick="enviarImagem()">Enviar Imagem</button>
-                            <h2>Imagem Complementares</h2>
-                            <input type="text" name="" id="inputInfo" placeholder="Insira aqui o título...">
+                            <input type="file" id="imagemInput" accept="image/*" name="Imagem Banner">
                         </div>
+
                     </div>
+
+                    <h2>Data</h2>
+                    <input type="text" name="" id="inputInfo" placeholder="Insira aqui a data...">
+
                     <h2>Corpo notícia</h2>
                     <input type="text" name="" id="inputInfo" placeholder="Insira aqui a notícia...">
-                    <div class="container-flex">
-                        <button class="adicionarSub">Adicionar Subtítulo</button>
+
+                    <div id="blocoSubtitulos">
+                        <div class="grupoSubtitulo">
+                            <div class="container-flex">
+                                <button class="adicionarSub" onclick="adicionarSubtitulo()">Adicionar Subtítulo</button>
+                            </div>
+                        </div>
                     </div>
-                    <!--<input type="text" name="" id="inputInfo" placeholder="Insira aqui o subtítulo..."> -->
+
 
                     <h2>Iframe</h2>
                     <input type="text" name="" id="inputInfo" placeholder="Insira aqui o link do Iframe...">
