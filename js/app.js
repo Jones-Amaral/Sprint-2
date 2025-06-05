@@ -173,7 +173,10 @@ window.onload = () => {
 
     localStorage.setItem("noticias", JSON.stringify(todasNoticias));
   }
-  document.getElementById("btnEnviar").addEventListener("click", criarNoticia);
+  const btnEnviar = document.getElementById("btnEnviar");
+  if (btnEnviar) {
+    btnEnviar.addEventListener("click", criarNoticia);
+  }
 };
 
 /* Ler no LocalStorage */
