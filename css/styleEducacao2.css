@@ -17,15 +17,19 @@ header {
     position: fixed;
 }
 
-header ul {
-    border: none;
-}
-
 .logo-img {
     height: 80px;
     margin-left: 20px;
 }
-
+header ul{
+border: none;
+}
+.icone-Adicionar{
+    width: 35px;
+    position: fixed;
+    top: 23px;
+    left: 220px;
+}
 .user-img {
     height: 50px;
     margin-right: 20px;
@@ -54,6 +58,76 @@ main {
 
 .row-direita {
     pointer-events: none;
+}
+
+/* Menu Hamburguer */
+.icone-hamburguer {
+    width: 40px;
+    position: fixed;
+    top: 20px;
+    left: 150px;
+}
+
+.menu-lateral ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.borda {
+    border-bottom: 2px solid #e7f5e9;
+    padding-bottom: 30px;
+}
+
+.menu-lateral ul {
+    padding-left: 0;
+    margin: 0;
+    border: none;
+}
+
+.menu-lateral ul li {
+    list-style-type: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.imgHamburguer {
+    width: 50px;
+}
+
+.menu-lateral {
+    display: none;
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    bottom: 50px;
+    width: 300px;
+    height: 700px;
+    background-color: #0a1a37;
+    color: #e7f5e9;
+    padding-top: 60px;
+    z-index: 999;
+    padding: 20px;
+    border-radius: 5px;
+
+    text-align: center;
+}
+
+.menu-lateral.show {
+    display: block;
+}
+
+/* Botão de fechar */
+.fechar-menu {
+    position: absolute;
+    font-size: 30px;
+    color: #e7f5e9;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .container {
@@ -189,7 +263,7 @@ main {
     border-radius: 5px;
     font-size: 20px;
     cursor: pointer;
-        padding: 10px;
+    padding: 10px;
 }
 
 .container-flex {

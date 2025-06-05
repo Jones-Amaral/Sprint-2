@@ -12,6 +12,7 @@
     <header>
         <a href="paginaEducacao.html"><img src="/img/header/logo.png" id="logo-header" class="logo-img"
                 alt="Logo +Grana"></a>
+        <a href="#" id="hamburguerMenu"><img src="/img/header/hamburguer.png" alt="Icone Menu" class="icone-hamburguer"></a>
         <nav id="menuHeader">
             <ul>
                 <li><a href="#">Página Inicial</a></li>
@@ -21,33 +22,24 @@
             </ul>
         </nav>
         <a href="#"><img src="img/header/user.png" id="user-header" class="user-img" alt="Icone User"></a>
+        <a href="adicao-dados.html"><img src="/img/header/adicionar.png" class="icone-Adicionar"
+                alt="Icone Adicionar Noticia"></a>
     </header>
 
     <main>
-        <a href="#" class="icone-hamburguer" id="hamburguerMenu"><img src="/img/header/hamburguer.png" alt="Icone Menu"
-                class="icone-hamburguer-img"></a>
-
-        <a href="adicao-dados.html"><img src="/img/header/adicionar.png" class="icone-Adicionar"
-                alt="Icone Adicionar Noticia"></a>
 
         <!-- Menu lateral -->
-        <div class="menu-lateral" id="menuLateral">
-            <button class="fechar-menu" id="fecharMenu">X</button>
-            <ul>
-                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/usuario.png"
-                            alt="Usuário">Minha Conta</a></li>
-                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/lupa.png"
-                            alt="Lupa">Pesquise Aqui</a></li>
-                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/interrogacao.png"
-                            alt="Tutorial">Tutoriais</a></li>
-                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/planilha.png"
-                            alt="Planilha">Planilha</a></li>
-                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/chat.png"
-                            alt="Converse Conosco">Converse Conosco</a></li>
-                <li><a href="#"><img class="imgHamburguer" src="/img/hamburguer/like.png" alt="">Favoritos</a></li>
-            </ul>
-            </button>
-        </div>
+<div class="menu-lateral" id="menuLateral">
+  <button class="fechar-menu" id="fecharMenu">X</button>
+  <ul>
+    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/usuario.png" alt="Usuário">Minha Conta</a></li>
+    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/lupa.png" alt="Lupa">Pesquise Aqui</a></li>
+    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/interrogacao.png" alt="Tutorial">Tutoriais</a></li>
+    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/planilha.png" alt="Planilha">Planilha</a></li>
+    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/chat.png" alt="Converse Conosco">Converse Conosco</a></li>
+    <li><a href="#"><img class="imgHamburguer" src="/img/hamburguer/like.png" alt="Favoritos">Favoritos</a></li>
+  </ul>
+</div>
 
         <h1 class="tituloNoticias">Educação</h1>
 
@@ -62,37 +54,22 @@
     <script src="/js/appEducacao.js"></script>
     <script src="/js/JSON.js"></script>
     <script>
-        /* noticias */
         let noticiasPorPagina = 3;
         let paginaAtual = 1;
 
-        /* Função do botão Veja Mais para carregar outras notícias*/
-        window.onload = function () {
-            exibirNoticias();
-
-            const botao = document.querySelector(".vejaMais");
-            botao.addEventListener("click", function (e) {
-                e.preventDefault();
-                paginaAtual++;
-                exibirNoticias();
-            });
-
-            const menuLateral = document.getElementById('menuLateral');
-            const hamburguerMenu = document.getElementById('hamburguerMenu');
-            const fecharMenu = document.getElementById('fecharMenu');
-
-            hamburguerMenu.addEventListener('click', function () {
-                menuLateral.classList.add('show');
-            });
-
-            fecharMenu.addEventListener('click', function () {
-                menuLateral.classList.remove('show');
-            });
-
-        };
-
-        /* Notícias carregadas pelo JSON */
         function exibirNoticias() {
+            const botao = document.querySelector(".vejaMais");
+            if (botao) {
+                botao.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    paginaAtual++;
+                    mostrarNoticias();
+                });
+            }
+            mostrarNoticias();
+        }
+
+        function mostrarNoticias() {
             let noticiasEducativas = document.getElementById("noticiaEducativa");
             const noticiasJSON = itens.educacao || [];
 
@@ -143,6 +120,23 @@
             } else {
                 document.querySelector(".vejaBtn").style.display = "block";
             }
+
+        }
+        exibirNoticias()
+
+        window.onload = () => {
+            const menuLateral = document.getElementById('menuLateral');
+            const hamburguerMenu = document.getElementById('hamburguerMenu');
+            const fecharMenu = document.getElementById('fecharMenu');
+
+            hamburguerMenu.addEventListener('click', function (e) {
+                e.preventDefault();
+                menuLateral.classList.add('show');
+            });
+
+            fecharMenu.addEventListener('click', function () {
+                menuLateral.classList.remove('show');
+            });
 
         }
     </script>

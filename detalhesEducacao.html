@@ -2,16 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detalhes</title>
-    <link rel="stylesheet" href="css/styleEducacao1.css">
+    <link rel="stylesheet" href="css/styleEducacao1.css" />
 </head>
 
 <body>
     <header>
         <a href="paginaEducacao.html"><img src="/img/header/logo.png" id="logo-header" class="logo-img"
-                alt="Logo +Grana"></a>
+                alt="Logo +Grana" /></a>
+        <a href="#" id="hamburguerMenu"><img src="/img/header/hamburguer.png" alt="Icone Menu"
+                class="icone-hamburguer" /></a>
         <nav id="menuHeader">
             <ul>
                 <li><a href="#">Página Inicial</a></li>
@@ -20,26 +22,36 @@
                 <li><a href="#">Investimento</a></li>
             </ul>
         </nav>
-        <a href="#"><img src="img/header/user.png" id="user-header" class="user-img" alt="Icone User"></a>
+        <a href="#"><img src="img/header/user.png" id="user-header" class="user-img" alt="Icone User" /></a>
+        <a href="adicao-dados.html"><img src="/img/header/adicionar.png" class="icone-Adicionar"
+                alt="Icone Adicionar Noticia" /></a>
     </header>
 
     <main id="detalhes">
-        <a href="#"><img src="/img/header/hamburguer.png" alt="Icone Menu" class="icone-hamburguer"></a>
-        <!-- Menu lateral -->
-
-        <div id="noticia"></div> <!-- Faz o carregamento das notícias -->
-
-
-
-        <img src="/img/img-educacao/coracao-png.png" alt="Favoritar Noticia" class="favoritar" id="imgFavoritar"
-            onclick="trocarImagem()">
-        <!-- Por enquanto só substitui a imagem, já que a parte de favoritar e busca não ficou para mim -->
+        <div class="menu-lateral" id="menuLateral">
+            <button class="fechar-menu" id="fecharMenu">X</button>
+            <ul>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/usuario.png"
+                            alt="Usuário">Minha Conta</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/lupa.png"
+                            alt="Lupa">Pesquise Aqui</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/interrogacao.png"
+                            alt="Tutorial">Tutoriais</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/planilha.png"
+                            alt="Planilha">Planilha</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/chat.png"
+                            alt="Converse Conosco">Converse Conosco</a></li>
+                <li><a href="#"><img class="imgHamburguer" src="/img/hamburguer/like.png" alt="Favoritos">Favoritos</a>
+                </li>
+            </ul>
+        </div>
+        <div id="noticia"></div>
     </main>
 
+    <script src="/js/JSON.js"></script>
+    <script src="/js/appEducacao.js"></script>
     <script>
-        /* noticias */
-        window.onload = function () {
-            /* Ligação do detalhe com ID */
+        window.onload = () => {
             let params = new URLSearchParams(location.search);
             let id = Number(params.get("id"));
 
@@ -47,80 +59,88 @@
             for (let categoria in itens) {
                 noticiasJSON = noticiasJSON.concat(itens[categoria]);
             }
+
             let noticiasLS = JSON.parse(localStorage.getItem("noticias") || "[]");
             let todasNoticias = noticiasJSON.concat(noticiasLS);
 
             let educacao = todasNoticias.find(n => n.id === id);
-            let comentario = usuario.find(function (elem) { return elem.id == id }) || { usuario: "Anônimo", comentario: "" };
 
-            /* Inserção da notícia na página */
             if (educacao) {
-                document.getElementById("noticia").innerHTML =
-                    `
-                        <div class="corpoNoticia">
-                           <h1>${educacao.titulo}</h1>
-                           <p class="resumo">${educacao.resumo}</p>
-                           <p class="autor">${educacao.autor}</p>
-                           <p class="data">${educacao.data}</p>
-                           <div class="bannerDetalhe"><img src="${educacao.banner}" alt="${educacao.descricao}" class="imgBanner"></div>
-                           <div class="textoNoticia"><p class="texto">${educacao.texto}</p></div>
-                           <h1>Entenda Mais no Vídeo Abaixo</h1>
-                           <div class="videoIframe"> <iframe width="789px" height="444px" src="${educacao.iframe}" title="${educacao.titulo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-                           </div>
-                            <h1>Últimos Comentários</h1>
-                                <div class="comentarios">
-                                    <div class="containerComentários">
-                                        <h2>Insira seu comentário abaixo</h2>
-                                        <input type="text" id="InserirComentario" class="insiraComentario" placeholder="Comente aqui..." value="Insira Aqui..."> 
-                                        <div class="botaoEnviar">
-                                            <button class="btnEnviar" id="btnEnviar">Enviar</button>
-                                        </div>
-                                    </div>
-                                    <div class="comentariosUsuarios" id="comentariosUsuarios">
-                                        <h2>Mais Recentes</h2>
-                                        <p>Comentado por: ${comentario.usuario}</p>
-                                        <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario"><input type="text" class="comentarioUsuario" placeholder="Comente aqui..." value="${comentario.comentario}"> 
-                                    </div>
-                                </div>
-                        
-                    `
-                /* Função para adicionar o comentário */
+                document.getElementById("noticia").innerHTML = `
+          <div class="corpoNoticia">
+            <h1>${educacao.titulo}</h1>
+            <p class="resumo">${educacao.resumo}</p>
+            <p class="autor">${educacao.autor}</p>
+            <p class="data">${educacao.data}</p>
+            <div class="bannerDetalhe">
+              <img src="${educacao.banner}" alt="${educacao.descricao}" class="imgBanner">
+            </div>
+            <div class="textoNoticia"><p class="texto">${educacao.texto}</p></div>
+            <h1>Entenda Mais no Vídeo Abaixo</h1>
+            <div class="videoIframe">
+              <iframe width="789" height="444" src="${educacao.iframe}" title="${educacao.titulo}" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <img src="/img/img-educacao/coracao-png.png" alt="Favoritar Noticia" class="favoritar" id="imgFavoritar">
+            <h1>Comentários</h1>
+            <div class="comentarios">
+              <div class="containerComentários">
+                <h2>Insira seu comentário abaixo</h2>
+                <input type="text" id="InserirComentario" class="insiraComentario" placeholder="Comente aqui...">
+                <div class="botaoEnviar">
+                  <button class="btnEnviar" id="btnEnviar">Enviar</button>
+                </div>
+              </div>
+              <div class="comentariosUsuarios" id="comentariosUsuarios">
+                <h2>Mais Recentes</h2>
+              </div>
+            </div>
+          </div>
+        `;
+
+                document.getElementById("imgFavoritar").addEventListener("click", function () {
+                    const img = this;
+                    img.src = img.src.includes("coracao-png") ?
+                        "/img/img-educacao/coracao-vermelho.png" :
+                        "/img/img-educacao/coracao-png.png";
+                });
+
                 document.getElementById("btnEnviar").addEventListener("click", function () {
-                    const inputComentario = document.getElementById("InserirComentario");
-                    const textoComentario = inputComentario.value.trim();
-
-                    if (textoComentario) {
-                        const containerUsuario = document.getElementById("comentariosUsuarios");
-
-                        const campoComentario = document.createElement("div");
-                        campoComentario.className = "comentarioInserido";
-                        campoComentario.innerHTML = `
-                    <p>Comentário Anônimo</p>
-                    <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
-                    <input type="text" class="comentarioUsuario" value="${textoComentario}" readonly>`;
-
-                        containerUsuario.appendChild(campoComentario);
-                        inputComentario.value = "";
+                    const input = document.getElementById("InserirComentario");
+                    const texto = input.value.trim();
+                    if (texto) {
+                        const container = document.getElementById("comentariosUsuarios");
+                        const div = document.createElement("div");
+                        div.className = "comentarioInserido";
+                        div.innerHTML = `
+              <p>Comentário Anônimo</p>
+              <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
+              <input type="text" class="comentarioUsuario" value="${texto}" readonly>
+            `;
+                        container.appendChild(div);
+                        input.value = "";
                     }
-                })
-
-            } else
-                document.getElementById("noticia").innerHTML = `<p>Página não encontrada</p>`
-        }
-
-        /* Função de troca de imagem */
-        function trocarImagem() {
-            const imagem = document.getElementById("imgFavoritar");
-            if (imagem.src.includes("/img/img-educacao/coracao-png.png")) {
-                imagem.src = "/img/img-educacao/coracao-vermelho.png"
+                });
             } else {
-                imagem.src = "/img/img-educacao/coracao-png.png"
+                document.getElementById("noticia").innerHTML = `<p>Página não encontrada.</p>`;
             }
-        }
-    </script>
-    <script src="/js/appEducacao.js"></script>
-    <script src="/js/JSON.js"></script>
 
+            const menuLateral = document.getElementById('menuLateral');
+            const hamburguerMenu = document.getElementById('hamburguerMenu');
+            const fecharMenu = document.getElementById('fecharMenu');
+
+            hamburguerMenu.addEventListener('click', function (e) {
+                e.preventDefault();
+                menuLateral.classList.add('show');
+            });
+
+            fecharMenu.addEventListener('click', function () {
+                menuLateral.classList.remove('show');
+            });
+
+        };
+    </script>
 </body>
 
 </html>

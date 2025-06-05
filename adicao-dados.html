@@ -10,81 +10,122 @@
 
 <body>
     <header>
-        <a href="#"><img src="img/header/logo.png" id="img-header" class="logo-img" alt="Logo +Grana"></a>
+        <a href="paginaEducacao.html"><img src="/img/header/logo.png" id="logo-header" class="logo-img"
+                alt="Logo +Grana" /></a>
+        <a href="#" id="hamburguerMenu"><img src="/img/header/hamburguer.png" alt="Icone Menu"
+                class="icone-hamburguer" /></a>
         <nav id="menuHeader">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="#">Página Inicial</a></li>
                 <li><a href="#">Noticias</a></li>
-                <li><a href="pagina-educacao-Sprint1.html">Educação</a></li>
+                <li><a href="paginaEducacao.html">Educação</a></li>
                 <li><a href="#">Investimento</a></li>
             </ul>
         </nav>
-        <a href="#"><img src="img/header/user.png" id="img-header" class="user-img" alt="Icone User"></a>
+        <a href="#"><img src="img/header/user.png" id="user-header" class="user-img" alt="Icone User" /></a>
+        <a href="adicao-dados.html"><img src="/img/header/adicionar.png" class="icone-Adicionar"
+                alt="Icone Adicionar Noticia" /></a>
     </header>
 
     <main>
+        <div class="menu-lateral" id="menuLateral">
+            <button class="fechar-menu" id="fecharMenu">X</button>
+            <ul>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/usuario.png"
+                            alt="Usuário">Minha Conta</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/lupa.png"
+                            alt="Lupa">Pesquise Aqui</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/interrogacao.png"
+                            alt="Tutorial">Tutoriais</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/planilha.png"
+                            alt="Planilha">Planilha</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/chat.png"
+                            alt="Converse Conosco">Converse Conosco</a></li>
+                <li><a href="#"><img class="imgHamburguer" src="/img/hamburguer/like.png" alt="Favoritos">Favoritos</a>
+                </li>
+            </ul>
+        </div>
+
         <div class="container">
-            <div class="row-esquerda"></div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <h1>Inserir Notícia</h1>
+                    <div class="corpoAdicao">
+                        <h2>Título da Notícia</h2>
+                        <input type="text" name="" id="inputTitulo" placeholder="Insira aqui o título...">
+                        <h2>Resumo</h2>
+                        <input type="text" name="" id="inputResumo" placeholder="Insira aqui o resumo...">
+                        <div class="container-info">
+                            <div class="row-info2">
+                                <h2>Autor</h2>
+                                <input type="text" name="" id="inputAutor" placeholder="Insira aqui o autor...">
 
-            <div class="row-centro">
-                <h1>Inserir Notícia</h1>
-                <div class="corpoAdicao">
-                    <h2>Título da Notícia</h2>
-                    <input type="text" name="" id="inputTitulo" placeholder="Insira aqui o título...">
-                    <h2>Resumo</h2>
-                    <input type="text" name="" id="inputResumo" placeholder="Insira aqui o resumo...">
-                    <div class="container-info">
-                        <div class="row-info2">
-                            <h2>Autor</h2>
-                            <input type="text" name="" id="inputAutor" placeholder="Insira aqui o autor...">
+                                <h2>Data</h2>
+                                <input type="text" name="" id="inputData" placeholder="Insira aqui a data...">
+                            </div>
+                            <div class="row-info">
+                                <h2>Categoria</h2>
+                                <div id="dropDownCategoria" class="dropDown">
+                                    <button id="inputCat" class="dropBtn" onclick="abrirDropDown()">Escolha a
+                                        categoria</button>
+                                    <div id="conteudoDropDown" class="conteudoDropDown">
+                                        <button type="button" onclick="selecionarCategoria(this)">educacao</button>
+                                        <button type="button" onclick="selecionarCategoria(this)">economia</button>
+                                        <button type="button" onclick="selecionarCategoria(this)">investimento</button>
+                                    </div>
+                                </div>
+                                <div class="divBanner">
+                                    <h2>Imagem Banner</h2>
+                                    <input type="file" id="imagemBanner" accept="image/*" name="Imagem Banner">
 
-                            <h2>Data</h2>
-                            <input type="text" name="" id="inputData" placeholder="Insira aqui a data...">
-                        </div>
-                        <div class="row-info">
-                            <h2>Categoria</h2>
-                            <div id="dropDownCategoria" class="dropDown">
-                                <button id="inputCat" class="dropBtn" onclick="abrirDropDown()">Escolha a
-                                    categoria</button>
-                                <div id="conteudoDropDown" class="conteudoDropDown">
-                                    <button type="button" onclick="selecionarCategoria(this)">educacao</button>
-                                    <button type="button" onclick="selecionarCategoria(this)">economia</button>
-                                    <button type="button" onclick="selecionarCategoria(this)">investimento</button>
                                 </div>
                             </div>
-                            <div class="divBanner">
-                                <h2>Imagem Banner</h2>
-                                <input type="file" id="imagemBanner" accept="image/*" name="Imagem Banner">
+                        </div>
 
+
+                        <h2>Corpo notícia</h2>
+                        <input type="text" name="" id="inputCorpo" placeholder="Insira aqui a notícia...">
+
+                        <div id="blocoSubtitulos">
+                            <div class="grupoSubtitulo">
+                                <div class="container-flex">
+                                    <button class="adicionarSub" onclick="adicionarSubtitulo()">Adicionar
+                                        Subtítulo</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <h2>Corpo notícia</h2>
-                    <input type="text" name="" id="inputCorpo" placeholder="Insira aqui a notícia...">
-
-                    <div id="blocoSubtitulos">
-                        <div class="grupoSubtitulo">
-                            <div class="container-flex">
-                                <button class="adicionarSub" onclick="adicionarSubtitulo()">Adicionar Subtítulo</button>
-                            </div>
+                        <h2>Iframe</h2>
+                        <input type="text" name="" id="inputIframe" placeholder="Insira aqui o link do Iframe...">
+                        <div class="container-flex">
+                            <button class="enviarNoticia" id="btnEnviar">Enviar</button>
                         </div>
-                    </div>
-
-
-                    <h2>Iframe</h2>
-                    <input type="text" name="" id="inputIframe" placeholder="Insira aqui o link do Iframe...">
-                    <div class="container-flex">
-                        <button class="enviarNoticia" id="btnEnviar">Enviar</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="row-direita"></div>
+                <div class="col-2"></div>
+            </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLateral = document.getElementById('menuLateral');
+            const hamburguerMenu = document.getElementById('hamburguerMenu');
+            const fecharMenu = document.getElementById('fecharMenu');
 
+            hamburguerMenu.addEventListener('click', function (e) {
+                e.preventDefault();
+                menuLateral.classList.add('show');
+            });
+
+            fecharMenu.addEventListener('click', function () {
+                menuLateral.classList.remove('show');
+            });
+        })
+
+    </script>
     <script src="js/appEducacao.js"></script>
     <script src="js/JSON.js"></script>
 </body>

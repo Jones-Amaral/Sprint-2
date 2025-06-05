@@ -19,9 +19,10 @@ function abrirDropDown() {
 window.addEventListener('click', function (event) {
   const dropdown = document.getElementById("dropDownCategoria");
   const botao = document.getElementById("inputCat");
+  const conteudoDrop = document.getElementById("conteudoDropDown");
 
-  if (!dropdown.contains(event.target)) {
-    document.getElementById("conteudoDropDown").style.display = "none";
+  if (dropdown && botao && conteudoDrop && !dropdown.contains(event.target)) {
+    conteudoDrop.style.display = "none";
     botao.style.borderRadius = "18px";
   }
 });
@@ -183,5 +184,3 @@ window.onload = () => {
 function carregarNoticiasLocalStorage() {
   return JSON.parse(localStorage.getItem("noticias") || "[]");
 }
-
-
