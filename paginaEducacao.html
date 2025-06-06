@@ -57,6 +57,7 @@
         let noticiasPorPagina = 3;
         let paginaAtual = 1;
 
+        fetch("http://localhost:3000/conteudo/educacao")
         function exibirNoticias() {
             const botao = document.querySelector(".vejaMais");
             if (botao) {

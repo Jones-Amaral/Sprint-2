@@ -48,6 +48,7 @@ function adicionarSubtitulo() {
 
   const h2Sub = document.createElement("h2");
   h2Sub.textContent = "Subtítulo da Notícia";
+  h2Sub.className = "subtitulo";
 
   const inputSub = document.createElement("input");
   inputSub.type = "text";
@@ -55,7 +56,8 @@ function adicionarSubtitulo() {
   inputSub.id = "inputSubNovo";
 
   const h2Corpo = document.createElement("h2");
-  h2Corpo.textContent = "Insira o Corpo da Notícia"
+  h2Corpo.textContent = "Insira o Corpo da Notícia";
+  h2Corpo.className = "subtitulo";
 
   const inputCorpo = document.createElement("input");
   inputCorpo.type = "text";
@@ -64,7 +66,8 @@ function adicionarSubtitulo() {
 
   const h2Img = document.createElement("h2");
   h2Img.textContent = "Insira uma imagem complementar"
-
+  h2Img.className = "subtitulo";
+  
   const inputImg = document.createElement("input");
   inputImg.type = "file";
   inputImg.accept = "image/*";

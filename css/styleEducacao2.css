@@ -1,6 +1,6 @@
 html,
 body {
-    background-color: #e7f5e9;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
@@ -21,15 +21,18 @@ header {
     height: 80px;
     margin-left: 20px;
 }
-header ul{
-border: none;
+
+header ul {
+    border: none;
 }
-.icone-Adicionar{
+
+.icone-Adicionar {
     width: 35px;
     position: fixed;
     top: 23px;
     left: 220px;
 }
+
 .user-img {
     height: 50px;
     margin-right: 20px;
@@ -51,14 +54,9 @@ header ul li a {
 
 /* Main */
 main {
-    height: 100%;
     padding-top: 80px;
-    width: 100%;
 }
 
-.row-direita {
-    pointer-events: none;
-}
 
 /* Menu Hamburguer */
 .icone-hamburguer {
@@ -130,13 +128,6 @@ main {
     cursor: pointer;
 }
 
-.container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    text-align: center;
-}
-
 .corpoAdicao {
     background-color: white;
     width: 100%;
@@ -171,7 +162,6 @@ main {
 
 .botao-upload {
     margin-top: 20px;
-    height: 100%;
     width: 100%;
     color: #0a1a36;
     background-color: #e6f4e8;
@@ -179,8 +169,11 @@ main {
     border-radius: 5px;
     font-size: 20px;
     padding: 15px;
-
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
 }
+
 
 #inputInfo::placeholder {
     vertical-align: center;
@@ -335,12 +328,13 @@ li button:hover {
 }
 
 /* Edição de texto */
-h1 {
+.titulo {
     color: #035a19;
     font-size: 50px;
 }
 
-h2 {
+.subtitulo {
+    color: #035a19;
     font-size: 30px;
     text-align: start;
     font-weight: 400;
@@ -351,3 +345,31 @@ h2 {
 
 /* Fim Edição */
 /* Main Fim */
+
+@media (max-width: 600px) {
+
+    #esquerda,
+    #direita {
+        background: red;
+        display: none !important;
+    }
+
+    .adicionarSub {
+        width: 80%;
+    }
+    
+
+    .container-info {
+        width: 100%;
+        display: block;
+
+    }
+}
+
+@media (max-width: 1000px) {
+
+    #esquerda,
+    #direita {
+        display: none !important;
+    }
+}
