@@ -67,7 +67,7 @@ function adicionarSubtitulo() {
   const h2Img = document.createElement("h2");
   h2Img.textContent = "Insira uma imagem complementar"
   h2Img.className = "subtitulo";
-  
+
   const inputImg = document.createElement("input");
   inputImg.type = "file";
   inputImg.accept = "image/*";
@@ -96,65 +96,79 @@ function adicionarSubtitulo() {
   bloco.appendChild(grupo);
 }
 
-/* Função para criar noticia */
+/* Criar Noticia JSON Server */
 function criarNoticia() {
+  const btnEnviar = document.getElementById("btnEnviar");
   const inputImagem = document.getElementById("imagemBanner");
   const arquivo = inputImagem.files[0];
 
-  if (arquivo) {
-    const leitor = new FileReader();
+  btnEnviar.addEventListener("click", async () => {
+    const titulo = document.getElementById("inputTitulo").value;
+    const subtitulo = document.getElementById("inputResumo").value;
+    const autor = document.getElementById("inputAutor").value;
+    const corpo = document.getElementById("inputCorpo").value.trim();
+    const data = document.getElementById("inputData").value;
+    const categoria = document.getElementById("inputCat").textContent;
+    const banner = document.getElementById("imagemBanner");
+    const bannerFile = banner.files[0];
+    const iframe = document.getElementById("inputIframe").value;
 
-    leitor.onload = async function (evento) {
-      const imagemBase64 = evento.target.result;
-      let htmlTexto = `<p>${document.getElementById("inputCorpo").value}</p><br>`;
+    if (!titulo || !subtitulo || !autor || !data || !categoria || !banner || !bannerFile || !iframe) {
+      alert("Preencha todos os campos");
+      return;
+    }
+    const bannerBase64 = await lerImagemComoBase64(bannerFile);
 
-      const grupos = document.querySelectorAll("#blocoSubtitulos .grupoSubtitulo");
+    const grupos = document.querySelectorAll(".grupoSubtitulo");
+    const blocosExtras = [];
+    for (let grupo of grupos) {
+      const sub = grupo.querySelector("#inputSubNovo")?.value || "";
+      const corpo = grupo.querySelector("#inputCorpoSub")?.value || "";
+      const imgFile = grupo.querySelector("#imagemInput")?.files[0];
+      let imagem = "";
 
-      for (let grupo of grupos) {
-        const subtitulo = grupo.querySelector("#inputSubNovo")?.value;
-        const corpo = grupo.querySelector("#inputCorpoSub")?.value;
-        const imagemInput = grupo.querySelector("#imagemInput");
 
-        if (subtitulo) {
-          htmlTexto += `<h2>${subtitulo}</h2>`;
-        }
-
-        if (corpo) {
-          htmlTexto += `<p>${corpo}</p><br>`;
-        }
-
-        if (imagemInput && imagemInput.files.length > 0) {
-          const imgFile = imagemInput.files[0];
-          const base64 = await lerImagemComoBase64(imgFile);
-          htmlTexto += `<img src="${base64}" style="max-width:100%;"/><br>`;
-        }
+      if (imgFile) {
+        imagem = await lerImagemComoBase64(imgFile);
       }
 
-      const noticiasSalvas = JSON.parse(localStorage.getItem("noticias") || "[]");
-
-      const noticia = {
-        id: (noticiasSalvas.length + 1),
-        titulo: document.getElementById("inputTitulo").value,
-        resumo: document.getElementById("inputResumo").value,
-        texto: htmlTexto,
-        data: document.getElementById("inputData").value,
-        autor: document.getElementById("inputAutor").value,
-        banner: imagemBase64,
-        tipo: document.getElementById("inputCat").textContent.trim(),
-        iframe: document.getElementById("inputIframe").value
-      };
-
-
-      alert("Notícia criada com sucesso!");
-
-      noticiasSalvas.push(noticia);
-      localStorage.setItem("noticias", JSON.stringify(noticiasSalvas));
+      if (sub && corpo) {
+        blocosExtras.push({
+          subtitulo: sub,
+          corpo: corpo,
+          imagem: imagem
+        });
+      }
+    }
+    const noticia = {
+      titulo,
+      subtitulo,
+      autor,
+      data,
+      categoria,
+      banner: bannerBase64,
+      corpo: corpo,
+      iframe,
+      extras: blocosExtras
     };
 
-    leitor.readAsDataURL(arquivo);
-  } else {
-    alert("Por favor, selecione uma imagem de banner.");
-  }
+    fetch("http://localhost:3000/noticias", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(noticia)
+    })
+      .then(res => res.json())
+      .then(() => {
+        alert("Notícia cadastrada com sucesso!");
+        window.location.reload();
+      })
+      .catch(err => {
+        console.error("Erro ao enviar:", err);
+        alert("Erro ao cadastrar a notícia.");
+      });
+  });
 }
 
 /* Carregar imagem */
@@ -165,25 +179,4 @@ function lerImagemComoBase64(file) {
     reader.onerror = error => reject(error);
     reader.readAsDataURL(file);
   });
-}
-
-window.onload = () => {
-  if (!localStorage.getItem("noticias")) {
-    let todasNoticias = [];
-
-    for (let categoria in itens) {
-      todasNoticias = todasNoticias.concat(itens[categoria]);
-    }
-
-    localStorage.setItem("noticias", JSON.stringify(todasNoticias));
-  }
-  const btnEnviar = document.getElementById("btnEnviar");
-  if (btnEnviar) {
-    btnEnviar.addEventListener("click", criarNoticia);
-  }
-};
-
-/* Ler no LocalStorage */
-function carregarNoticiasLocalStorage() {
-  return JSON.parse(localStorage.getItem("noticias") || "[]");
 }

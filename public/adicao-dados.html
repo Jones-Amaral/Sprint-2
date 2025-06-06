@@ -79,7 +79,8 @@
                                 </div>
                                 <div class="divBanner">
                                     <h2 class="subtitulo">Imagem Banner</h2>
-                                    <label for="imagemBanner" class="botao-upload" id="botaoBanner">Escolher Imagem</label>
+                                    <label for="imagemBanner" class="botao-upload" id="botaoBanner">Escolher
+                                        Imagem</label>
                                     <input type="file" id="imagemBanner" accept="image/*" name="Imagem Banner"
                                         style="display: none;">
 
@@ -114,7 +115,7 @@
         </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        window.onload = () => {
             const menuLateral = document.getElementById('menuLateral');
             const hamburguerMenu = document.getElementById('hamburguerMenu');
             const fecharMenu = document.getElementById('fecharMenu');
@@ -126,16 +127,21 @@
 
             fecharMenu.addEventListener('click', function () {
                 menuLateral.classList.remove('show');
-            });
-        })
+            })
+
+            criarNoticia();
+
+        }
         const input = document.getElementById('imagemBanner');
         const botaoBanner = document.getElementById("botaoBanner");
         input.addEventListener('change', () => {
-            if(input.files.length>0){
-            botaoBanner.textContent = input.files[0].name;}
-            else{
+            if (input.files.length > 0) {
+                botaoBanner.textContent = input.files[0].name;
+            }
+            else {
                 botaoBanner.textContent = "Escolher Imagem"
             }
+
         });
     </script>
     <script src="js/appEducacao.js"></script>

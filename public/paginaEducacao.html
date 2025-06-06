@@ -49,9 +49,11 @@
         </div>
 
         <h1 class="tituloNoticias">Educação</h1>
-        <div id="noticiaEducativa"></div> <!-- Notícias pelo JSON -->
+        <div id="noticiaEducativa"></div>
+        <!-- Notícias pelo JSON -->
 
-        <div class="vejaBtn"> <!-- Botão para mostrar mais notícias -->
+        <div class="vejaBtn">
+            <!-- Botão para mostrar mais notícias -->
             <button class="vejaMais"><a href="#">Veja Mais</a></button>
         </div>
 
@@ -60,77 +62,58 @@
     <script src="/js/appEducacao.js"></script>
     <script src="/js/JSON.js"></script>
     <script>
-        let noticiasPorPagina = 3;
+        let noticias = [];
         let paginaAtual = 1;
+        const porPagina = 3;
 
-        fetch("http://localhost:3000/conteudo/educacao")
-        function exibirNoticias() {
-            const botao = document.querySelector(".vejaMais");
-            if (botao) {
-                botao.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    paginaAtual++;
-                    mostrarNoticias();
-                });
-            }
-            mostrarNoticias();
-        }
+        fetch("http://localhost:3000/educacao")
+            .then(res => res.json())
+            .then(data => {
+                noticias = data;
+                mostrarNoticias();
+                exibirNoticias();
+            });
 
         function mostrarNoticias() {
+
             let noticiasEducativas = document.getElementById("noticiaEducativa");
-            const noticiasJSON = itens.educacao || [];
 
-            const noticiasLS = carregarNoticiasLocalStorage();
-
-            const noticiasLSFiltradas = noticiasLS.filter(noticia => noticia.tipo === "educacao");
-
-            const idsJSON = new Set(noticiasJSON.map(n => n.id));
-
-            const noticiasUnicasLS = noticiasLSFiltradas.filter(noticia => !idsJSON.has(noticia.id));
-
-            const todasNoticias = noticiasJSON.concat(noticiasUnicasLS);
-
-            const inicio = (paginaAtual - 1) * noticiasPorPagina;
-            const fim = inicio + noticiasPorPagina;
-
-            const noticiasPagina = todasNoticias.slice(inicio, fim);
+            let inicio = 0;
 
             let strNoticia = "";
-            for (let i = 0; i < noticiasPagina.length; i++) {
-                const noticia = noticiasPagina[i];
+
+            const fim = paginaAtual * porPagina;
+
+            for (let i = inicio; i < fim && i < noticias.length; i++) {
+                const noticia = noticias[i];
                 strNoticia += `
-                     <div class="noticia text-center">
-                         <div class="imagemNoticia text-center">
-                             <a href="detalhesEducacao.html?id=${noticia.id}">
-                                 <img src="${noticia.banner}" class="imagem" alt="${noticia.descricao || noticia.titulo}">
-                             
-                         </div>
-                         <div class="texto">
-                             <h1>${noticia.titulo}</h1></a>
-                             <p class="resumo">${noticia.resumo}</p>
-                             <p class="autor">${noticia.autor}</p>
-                             <p class="data">${noticia.data}</p>
-                         </div>
-                     </div>
+                    <div class="noticia text-center">
+                        <a href="detalhesEducacao.html?id=${noticia.id}">
+                        <div class="imagemNoticia text-center">
+                                <img src="${noticia.banner}" class="imagem" alt="${noticia.descricao || noticia.titulo}">
+                        </div>
+                        <div class="texto">
+                            <h1>${noticia.titulo}</h1></a>
+                        <p class="resumo">${noticia.resumo}</p>
+                        <p class="autor">${noticia.autor}</p>
+                        <p class="data">${noticia.data}</p>
+                    </div>
+                     </div >
                  `;
             }
 
-            if (paginaAtual === 1) {
-                noticiasEducativas.innerHTML = strNoticia;
+            noticiasEducativas.innerHTML = strNoticia;
+
+            const botao = document.querySelector(".vejaMais");
+            if (fim >= noticias.length) {
+                botao.style.display = "none";
             } else {
-                noticiasEducativas.innerHTML += strNoticia;
+                botao.style.display = "block";
             }
-
-
-            if (fim >= todasNoticias.length) {
-                document.querySelector(".vejaBtn").style.display = "none";
-            } else {
-                document.querySelector(".vejaBtn").style.display = "block";
-            }
-
         }
-        exibirNoticias()
 
+
+        /* Hamburguer */
         window.onload = () => {
             const menuLateral = document.getElementById('menuLateral');
             const hamburguerMenu = document.getElementById('hamburguerMenu');
@@ -145,6 +128,18 @@
                 menuLateral.classList.remove('show');
             });
 
+        }
+
+        /* Botão Veja Mais */
+        function exibirNoticias() {
+            const botao = document.querySelector(".vejaMais");
+            if (botao) {
+                botao.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    paginaAtual++;
+                    mostrarNoticias();
+                });
+            }
         }
     </script>
 

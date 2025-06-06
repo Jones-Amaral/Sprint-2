@@ -88,19 +88,12 @@ main {
     align-items: center;
 }
 
-.vejaBtn {
-    width: 100%;
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-
 .vejaMais a {
     text-decoration: none;
+    color: #0a1a37;
 }
 
 .vejaMais {
-
     width: 200px;
     height: 75px;
     border: solid 4px #022b10;
@@ -108,7 +101,8 @@ main {
     background-color: #b3e69e;
     font-size: 25px;
     font-weight: 500;
-    color: #021d0b;
+    margin: 40px auto;
+    cursor: pointer;
 }
 
 .imagemNoticia {
