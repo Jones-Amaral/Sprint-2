@@ -23,12 +23,13 @@ header {
     margin-left: 20px;
 }
 
-.icone-Adicionar{
+.icone-Adicionar {
     width: 35px;
     position: fixed;
     top: 23px;
     left: 220px;
 }
+
 .user-img {
     height: 50px;
     margin-right: 20px;
@@ -135,14 +136,14 @@ main {
     gap: 10px;
 }
 
-.borda{
+.borda {
     border-bottom: 2px solid #e7f5e9;
     padding-bottom: 30px;
 }
 
 .menu-lateral ul {
- padding-left: 0;
- margin: 0;
+    padding-left: 0;
+    margin: 0;
 }
 
 .menu-lateral ul li {
@@ -151,7 +152,7 @@ main {
     margin-bottom: 30px;
 }
 
-.imgHamburguer{
+.imgHamburguer {
     width: 50px;
 }
 
@@ -377,4 +378,31 @@ input::placeholder {
     #menuHeader {
         display: none;
     }
+}
+
+@media (max-width: 600px) {
+    #noticiaEducativa {
+        width: 90%;
+        margin-top: 30px;
+        padding: auto;
+        text-align: center;
+        margin-bottom: 20px;
+        margin: 0 auto;
+    }
+
+    .noticia {
+        background-color: #b3e69e;
+        text-align: center;
+        border-top: #034C1C solid 2px;
+        border-bottom: #034C1C solid 2px;
+        border-radius: 8px;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .noticia .imagem {
+        width: 90%;
+        height: 250px;
+    }
+
 }

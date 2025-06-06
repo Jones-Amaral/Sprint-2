@@ -12,7 +12,8 @@
     <header>
         <a href="paginaEducacao.html"><img src="/img/header/logo.png" id="logo-header" class="logo-img"
                 alt="Logo +Grana"></a>
-        <a href="#" id="hamburguerMenu"><img src="/img/header/hamburguer.png" alt="Icone Menu" class="icone-hamburguer"></a>
+        <a href="#" id="hamburguerMenu"><img src="/img/header/hamburguer.png" alt="Icone Menu"
+                class="icone-hamburguer"></a>
         <nav id="menuHeader">
             <ul>
                 <li><a href="#">Página Inicial</a></li>
@@ -29,20 +30,25 @@
     <main>
 
         <!-- Menu lateral -->
-<div class="menu-lateral" id="menuLateral">
-  <button class="fechar-menu" id="fecharMenu">X</button>
-  <ul>
-    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/usuario.png" alt="Usuário">Minha Conta</a></li>
-    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/lupa.png" alt="Lupa">Pesquise Aqui</a></li>
-    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/interrogacao.png" alt="Tutorial">Tutoriais</a></li>
-    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/planilha.png" alt="Planilha">Planilha</a></li>
-    <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/chat.png" alt="Converse Conosco">Converse Conosco</a></li>
-    <li><a href="#"><img class="imgHamburguer" src="/img/hamburguer/like.png" alt="Favoritos">Favoritos</a></li>
-  </ul>
-</div>
+        <div class="menu-lateral" id="menuLateral">
+            <button class="fechar-menu" id="fecharMenu">X</button>
+            <ul>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/usuario.png"
+                            alt="Usuário">Minha Conta</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/lupa.png"
+                            alt="Lupa">Pesquise Aqui</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/interrogacao.png"
+                            alt="Tutorial">Tutoriais</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/planilha.png"
+                            alt="Planilha">Planilha</a></li>
+                <li class="borda"><a href="#"><img class="imgHamburguer" src="/img/hamburguer/chat.png"
+                            alt="Converse Conosco">Converse Conosco</a></li>
+                <li><a href="#"><img class="imgHamburguer" src="/img/hamburguer/like.png" alt="Favoritos">Favoritos</a>
+                </li>
+            </ul>
+        </div>
 
         <h1 class="tituloNoticias">Educação</h1>
-
         <div id="noticiaEducativa"></div> <!-- Notícias pelo JSON -->
 
         <div class="vejaBtn"> <!-- Botão para mostrar mais notícias -->
@@ -93,8 +99,8 @@
             for (let i = 0; i < noticiasPagina.length; i++) {
                 const noticia = noticiasPagina[i];
                 strNoticia += `
-                     <div class="noticia">
-                         <div class="imagemNoticia">
+                     <div class="noticia text-center">
+                         <div class="imagemNoticia text-center">
                              <a href="detalhesEducacao.html?id=${noticia.id}">
                                  <img src="${noticia.banner}" class="imagem" alt="${noticia.descricao || noticia.titulo}">
                              
