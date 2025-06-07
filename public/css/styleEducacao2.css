@@ -247,7 +247,8 @@ main {
 }
 
 .adicionarSub {
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     height: 100%;
     width: 20%;
     color: #0a1a36;
@@ -263,7 +264,11 @@ main {
     display: flex;
     justify-content: flex-end;
 }
-
+#btnEnviarCont{
+    width: 100%;
+    padding: auto;
+    text-align: center;
+}
 .enviarNoticia {
     margin-top: 20px;
     height: 100%;
@@ -275,6 +280,7 @@ main {
     border-radius: 5px;
     font-size: 20px;
     cursor: pointer;
+
 }
 
 

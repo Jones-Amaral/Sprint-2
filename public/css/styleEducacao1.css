@@ -3,6 +3,7 @@ html,
 body {
     background-color: #e7f5e9;
     margin: 0;
+    margin-bottom: 20px;
     padding: 0;
 }
 
@@ -110,6 +111,7 @@ main {
     align-items: center;
     justify-content: center;
 }
+
 /* Menu Hamburguer */
 .icone-hamburguer {
     width: 40px;
@@ -351,6 +353,7 @@ input::placeholder {
 
 /* Media */
 @media (max-width: 1000px) {
+
     #noticiaEducativa {
         grid-template-columns: 1fr;
     }
@@ -369,9 +372,25 @@ input::placeholder {
     #menuHeader {
         display: none;
     }
+
 }
 
 @media (max-width: 600px) {
+    body {
+        width: 600px;
+    }
+
+    .corpoNoticia {
+        width: 600px;
+    }
+
+    header {
+        width: 600px;
+    }
+.iframeVideo{
+    width: 500px !important;
+    height: 300px;
+}
     #noticiaEducativa {
         width: 90%;
         margin-top: 30px;
@@ -379,6 +398,10 @@ input::placeholder {
         text-align: center;
         margin-bottom: 20px;
         margin: 0 auto;
+    }
+
+    .imgBanner {
+        width: 100% ;
     }
 
     .noticia {
