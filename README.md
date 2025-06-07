@@ -1,4 +1,3 @@
-Passar para o fetch e resolver os problemas de compt
-resolver a adição de noticia
 terminar de deixar responsivo
 
+Corrigir os comentarios e coração não funcionar, com o sprint 2 enviado

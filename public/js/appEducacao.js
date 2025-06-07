@@ -106,12 +106,19 @@ function criarNoticia() {
     const titulo = document.getElementById("inputTitulo").value;
     const subtitulo = document.getElementById("inputResumo").value;
     const autor = document.getElementById("inputAutor").value;
-    const corpo = document.getElementById("inputCorpo").value.trim();
+    const corpo = document.getElementById("inputCorpo").value;
     const data = document.getElementById("inputData").value;
     const categoria = document.getElementById("inputCat").textContent;
     const banner = document.getElementById("imagemBanner");
     const bannerFile = banner.files[0];
     const iframe = document.getElementById("inputIframe").value;
+
+    const resposta = await fetch(`http://localhost:3000/${categoria}`);
+    const dados = await resposta.json();
+
+    const novoId = dados.length > 0
+      ? (Math.max(...dados.map(item => item.id)) + 1).toString()
+      : 1;
 
     if (!titulo || !subtitulo || !autor || !data || !categoria || !banner || !bannerFile || !iframe) {
       alert("Preencha todos os campos");
@@ -141,18 +148,19 @@ function criarNoticia() {
       }
     }
     const noticia = {
+      id: novoId,
       titulo,
       subtitulo,
       autor,
       data,
       categoria,
       banner: bannerBase64,
-      corpo: corpo,
+      texto: corpo,
       iframe,
       extras: blocosExtras
     };
 
-    fetch("http://localhost:3000/noticias", {
+    fetch(`http://localhost:3000/${categoria}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -161,14 +169,15 @@ function criarNoticia() {
     })
       .then(res => res.json())
       .then(() => {
-        alert("Notícia cadastrada com sucesso!");
+        alert("Item cadastrado com sucesso!");
         window.location.reload();
       })
       .catch(err => {
         console.error("Erro ao enviar:", err);
-        alert("Erro ao cadastrar a notícia.");
+        alert("Erro ao cadastrar o item.");
       });
   });
+
 }
 
 /* Carregar imagem */
