@@ -151,13 +151,16 @@ function criarNoticia() {
       id: novoId,
       titulo,
       subtitulo,
+      texto: corpo,
+      favoritado: false,
       autor,
       data,
       categoria,
       banner: bannerBase64,
-      texto: corpo,
+      descricao: titulo,
       iframe,
-      extras: blocosExtras
+      extras: blocosExtras,
+      comentario: []
     };
 
     fetch(`http://localhost:3000/${categoria}`, {
@@ -189,3 +192,91 @@ function lerImagemComoBase64(file) {
     reader.readAsDataURL(file);
   });
 }
+
+/* Favorito do Coração */
+function favorito(element, id) {
+  fetch(`http://localhost:3000/educacao/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      favoritos = data;
+      let confereFavorito;
+      if (element.src.includes("coracao-png")) {
+        confereFavorito = true;
+        element.src = "/img/img-educacao/coracao-vermelho.png";
+      }
+      else {
+        element.src = "/img/img-educacao/coracao-png.png";
+        confereFavorito = false;
+      }
+      data.favoritado = confereFavorito;
+
+      return fetch(`http://localhost:3000/educacao/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+    })
+
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar favorito");
+      }
+    })
+    .catch(error => {
+      console.error("Erro ao favoritar:", error);
+      alert("Não foi possível atualizar o favorito.");
+    });
+}
+
+/* Função para enviar comentário pelo botão Enviar */
+function EnviarComentario() {
+  const inputComentario = document.getElementById("InserirComentario");
+  const textoComentario = inputComentario.value;
+  const novoComentario = {
+    usuario: "Comentário Anônimo",
+    comentario: textoComentario
+  }
+  /* Fetch para adicionar o comentário */
+  fetch(`http://localhost:3000/educacao/${id}`)
+    .then(res => res.json())
+    .then(noticia => {
+      noticia.comentario.push(novoComentario);
+      return fetch(`http://localhost:3000/educacao/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(noticia)
+      });
+    })
+    /* Cria o comentário */
+    .then(data => {
+      const containerUsuario = document.getElementById("comentariosUsuarios");
+      let strCampoComentario = "";
+      strCampoComentario += `
+                    <div id="comentarioInserido">
+                        <p> ${novoComentario.usuario}</p>
+                        <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
+                        <input type="text" class="comentarioUsuario" value="${textoComentario}"readonly>
+                    </div>`;
+      containerUsuario.innerHTML += strCampoComentario;
+      inputComentario.value = "";
+    })
+    .catch(err => {
+      console.error("Erro:", err);
+      alert("Não foi possível enviar o comentário.");
+    });
+}
+
+/* Função de troca de imagem */
+function trocarImagem() {
+  const imagem = document.getElementById("imgFavoritar");
+  if (imagem.src.includes("/img/img-educacao/coracao-png.png")) {
+    imagem.src = "/img/img-educacao/coracao-vermelho.png"
+  } else {
+    imagem.src = "/img/img-educacao/coracao-png.png"
+  }
+}
+

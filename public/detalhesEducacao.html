@@ -48,17 +48,34 @@
                 </li>
             </ul>
         </div>
-        
-        
-        <img src="/img/img-educacao/coracao-png.png" alt="Favoritar Noticia" class="favoritar" id="imgFavoritar">
-        <div id="noticia"></div>
+
+
+
+
+        <div id="noticia"> </div>
+
+        <div id="comentariosCampos">
+            <h1>Comentários</h1>
+            <div class="containerComentários">
+                <h2>Insira seu comentário abaixo</h2>
+                <input type="text" id="InserirComentario" class="insiraComentario" placeholder="Comente aqui...">
+                <div class="botaoEnviar">
+                    <button class="btnEnviar" id="btnEnviar" onclick="EnviarComentario()">Enviar</button>
+                </div>
+            </div>
+            <h2>Mais Recentes</h2>
+            <div class="comentariosUsuarios" id="comentariosUsuarios">
+            </div>
+        </div>
+
     </main>
 
     <script src="/js/appEducacao.js"></script>
     <script>
+        /* Detalhes noticia */
+        let params = new URLSearchParams(location.search);
+        const id = parseInt(params.get("id"));
         window.onload = () => {
-            let params = new URLSearchParams(location.search);
-            const id = parseInt(params.get("id"));
             fetch(`http://localhost:3000/educacao/${id}`)
                 .then(res => res.json())
                 .then(data => {
@@ -66,6 +83,7 @@
                     let strNoticia = "";
                     strNoticia += `
                         <div class="corpoNoticia p-4 fs-2">
+                        <img src="/img/img-educacao/coracao-png.png" alt="Favoritar Noticia" class="favoritar" id="imgFavoritar" onclick="favorito(this, ${educacao.id})">
                             <h1>${educacao.titulo}</h1>
                             <p class="resumo">${educacao.resumo}</p>
                             <p class="autor">${educacao.autor}</p>
@@ -76,66 +94,27 @@
                             <div class="textoNoticia"><p class="texto">${educacao.texto}</p></div>
                             <h1>Entenda Mais no Vídeo Abaixo</h1>
                             <div class="videoIframe">
-                                <iframe width="789" height="444" class="iframeVideo" src="${educacao.iframe}" title="${educacao.titulo}" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                                <h1>Comentários</h1>
-                                <div class="comentarios">
-                                    <div class="containerComentários">
-                                        <h2>Insira seu comentário abaixo</h2>
-                                        <input type="text" id="InserirComentario" class="insiraComentario" placeholder="Comente aqui...">
-                                            <div class="botaoEnviar">
-                                                <button class="btnEnviar" id="btnEnviar">Enviar</button>
-                                            </div>
-                                    </div>
-                                    <div class="comentariosUsuarios" id="comentariosUsuarios">
-                                        <h2>Mais Recentes</h2>
-                                    </div>
-                                </div>
+                                <iframe width="789" height="444" class="iframeVideo" src="${educacao.iframe}" title="${educacao.titulo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>`;
+
+                    /* Fetch para carregar o comentário com base no ID */
+                    let campoComentario = "";
+                    educacao.comentario.forEach(coment => {
+                        campoComentario += `
+                        <div class="comentarioInserido">
+                            <p>${coment.usuario}</p>
+                            <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
+                            <input type="text" class="comentarioUsuario" value="${coment.comentario}" readonly>`;
+                    })
+
                     document.getElementById("noticia").innerHTML = strNoticia;
-                }).catch(err => console.error(err))
-
-
-        };
-        /* Função para adicionar o comentário */
-        fetch("http://localhost:3000/comentarios")
-            .then(res => res.json())
-            .then(data => {
-                comentarios = data;
-
-
-            });
-
-        /* Função para enviar comentário pelo botão Enviar */
-        document.getElementById("btnEnviar").addEventListener("click", function () {
-            const inputComentario = document.getElementById("InserirComentario");
-            const textoComentario = inputComentario.value.trim();
-
-            if (textoComentario) {
-                const containerUsuario = document.getElementById("comentariosUsuarios");
-
-                const campoComentario = document.createElement("div");
-                campoComentario.className = "comentarioInserido";
-                campoComentario.innerHTML = `
-                    <p>Comentário Anônimo</p>
-                    <img src="/img/img-educacao/chat.png" class="iconeUsuario" alt="Icone Usuario">
-                    <input type="text" class="comentarioUsuario" value="${textoComentario}" readonly>`;
-
-                containerUsuario.appendChild(campoComentario);
-                inputComentario.value = "";
-            }
-        })
-        /* Função de troca de imagem */
-        function trocarImagem() {
-            const imagem = document.getElementById("imgFavoritar");
-            if (imagem.src.includes("/img/img-educacao/coracao-png.png")) {
-                imagem.src = "/img/img-educacao/coracao-vermelho.png"
-            } else {
-                imagem.src = "/img/img-educacao/coracao-png.png"
-            }
+                    document.getElementById("comentariosUsuarios").innerHTML = campoComentario;
+                }).catch(err => console.error(err));
         }
+
+
+
+        /* Hamburguer */
         const menuLateral = document.getElementById('menuLateral');
         const hamburguerMenu = document.getElementById('hamburguerMenu');
         const fecharMenu = document.getElementById('fecharMenu');
@@ -148,7 +127,9 @@
         fecharMenu.addEventListener('click', function () {
             menuLateral.classList.remove('show');
         });
-        carregarComentarios();
+
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
